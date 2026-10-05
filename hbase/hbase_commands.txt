@@ -1,0 +1,65 @@
+# Student 4 — HBase execution commands
+# Retail Demand Forecasting
+#
+# HBase table purpose:
+# Fast lookup of store-level demand summaries for operational/analytical access.
+# Row key: STORE#<store_id>
+# Column family: demand
+
+# 1) Start the full Docker stack (run on the project machine)
+docker-compose --profile full up -d
+
+# 2) Confirm HBase is running
+docker ps
+docker logs hbase
+
+# Optional: open HBase Master UI in the browser
+# http://localhost:16010
+
+# 3) Copy the prepared, headerless TSV into the NameNode container
+# Run this from the folder containing student4_hbase_store_summary.tsv
+docker cp student4_hbase_store_summary.tsv namenode:/tmp/student4_hbase_store_summary.tsv
+
+# 4) Put the TSV into HDFS so ImportTsv reads a distributed input file.
+docker exec -it namenode hdfs dfs -mkdir -p /data/retail/results/hbase
+docker exec -it namenode hdfs dfs -put -f /tmp/student4_hbase_store_summary.tsv /data/retail/results/hbase/
+
+# 5) Enter HBase container
+docker exec -it hbase bash
+
+# 6) Start HBase shell
+hbase shell
+
+# 7) Create the table
+# Run DROP first only if you already created this table in an earlier attempt.
+# disable 'retail_store_summary'
+# drop 'retail_store_summary'
+create 'retail_store_summary', 'demand'
+exit
+
+# 8) Import the TSV into HBase.
+hbase org.apache.hadoop.hbase.mapreduce.ImportTsv \
+-Dimporttsv.separator=$'\t' \
+-Dimporttsv.columns=HBASE_ROW_KEY,demand:region,demand:records,demand:total_demand,demand:avg_demand,demand:avg_demand_gap \
+retail_store_summary \
+hdfs://namenode:8020/data/retail/results/hbase/student4_hbase_store_summary.tsv
+
+# NOTE: student4_hbase_store_summary.tsv is headerless because ImportTsv treats each line as a data row.
+
+# 10) Verify the table
+hbase shell
+
+describe 'retail_store_summary'
+count 'retail_store_summary'
+scan 'retail_store_summary'
+
+# 11) Demonstrate row-level lookup
+get 'retail_store_summary', 'STORE#S002'
+get 'retail_store_summary', 'STORE#S004'
+
+# 12) Demonstrate a column-family lookup
+get 'retail_store_summary', 'STORE#S002', {COLUMN => 'demand'}
+
+# 13) Optional: delete the imported table when re-running from scratch
+# disable 'retail_store_summary'
+# drop 'retail_store_summary'

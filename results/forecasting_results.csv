@@ -1,0 +1,4 @@
+model,RMSE,MAE,R2
+Lag-1 Baseline,51.465,39.671,-0.312
+Linear Regression,32.790,25.374,0.467
+Random Forest,31.931,24.715,0.495
