@@ -152,9 +152,7 @@ The dataset contains attributes related to:
 
 \- Git / GitHub – Version control and project repository
 
-
-
-\---
+---
 
 
 
@@ -166,77 +164,79 @@ The logical project workflow is:
 
 
 
-Retail Demand Dataset
+```text
 
-&#x20;       |
+&#x20;                   Retail Demand Dataset
 
-&#x20;       v
+&#x20;                             |
 
-&#x20;     HDFS
+&#x20;                             v
 
-&#x20;  Student 1
+&#x20;                           HDFS
 
-&#x20;       |
+&#x20;                        Student 1
 
-&#x20;       v
+&#x20;                             |
 
-&#x20;     Hive
+&#x20;                             v
 
-&#x20;  Student 2
+&#x20;                           Hive
 
-&#x20;       |
+&#x20;                        Student 2
 
-&#x20;       v
+&#x20;                             |
 
-&#x20;Spark / PySpark
+&#x20;                             v
 
-&#x20;  Student 3
+&#x20;                      Spark / PySpark
 
-&#x20;       |
+&#x20;                        Student 3
 
-&#x20;       +----------------------+
+&#x20;                             |
 
-&#x20;       |                      |
+&#x20;                +------------+------------+
 
-&#x20;       v                      v
+&#x20;                |                         |
 
-&#x20;Distributed Analytics     MLlib Forecasting
+&#x20;                v                         v
 
-&#x20;       |                      |
+&#x20;      Distributed Analytics       MLlib Forecasting
 
-&#x20;       +----------+-----------+
+&#x20;                |                         |
 
-&#x20;                  |
+&#x20;                +------------+------------+
 
-&#x20;                  v
+&#x20;                             |
 
-&#x20;           Analytical Results
+&#x20;                             v
 
-&#x20;                  |
+&#x20;                   Analytical Results
 
-&#x20;                  v
+&#x20;                             |
 
-&#x20;                HBase
+&#x20;                             v
 
-&#x20;             Student 4
+&#x20;                          HBase
 
-&#x20;                  |
+&#x20;                        Student 4
 
-&#x20;                  v
+&#x20;                             |
 
-&#x20;       Integration \& Validation
+&#x20;                             v
 
-&#x20;             Student 5
+&#x20;                 Integration \& Validation
 
-&#x20;                  |
+&#x20;                        Student 5
 
-&#x20;                  v
+&#x20;                             |
 
-&#x20;       Final Results \& Documentation
+&#x20;                             v
+
+&#x20;                Final Results \& Documentation
 
 
 
-\### Execution Environment Note
+Execution Environment Note
 
 
 
@@ -244,11 +244,13 @@ The project components were developed and executed in different environments rat
 
 
 
-In particular, the Spark/PySpark workflow was executed in Google Colab using Spark local mode. Therefore, the architecture above represents the logical end-to-end project workflow, while the individual technical stages were executed and verified in their respective environments.
+In particular, the Spark/PySpark workflow was executed in Google Colab using Spark local mode.
 
 
 
-\---
+Therefore, the architecture above represents the logical end-to-end project workflow, while the individual technical stages were executed and verified in their respective environments.
+
+---
 
 
 
@@ -448,6 +450,14 @@ These findings represent descriptive associations in the analysed dataset and sh
 
 
 
+
+
+\### BLOCK 3 — Sections 11 to 15
+
+
+
+```text
+
 \---
 
 
@@ -602,6 +612,8 @@ Contribution: Integration, documentation, final results and validation
 
 
 
+```text
+
 Retail-Demand-Forecasting-Big-Data/
 
 |
@@ -671,6 +683,8 @@ Retail-Demand-Forecasting-Big-Data/
 |
 
 └── README.md
+
+
 
 
 
